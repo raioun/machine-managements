@@ -1,15 +1,21 @@
 <% if logged_in? %>
-  <p>ユーザ名: <%= current_user.name %></p>
+  <div  class="text-center">
+    <p>ユーザ名: <%= current_user.name %></p>
+  </div>
   <div class="link">
     <%= link_to '新規顧客登録', 'customers/new', class: 'btn btn-lg btn-success' %>
-  </div>  
+  </div>
+  <div class="link">
+    <%= link_to '新規現場登録', 'places/new', class: 'btn btn-lg btn-success' %>
+  </div>
+  <div class="link">
+    <%= link_to '現場一覧', 'places', class: 'btn btn-lg btn-success' %>
+  </div>
+  
 <% else %>
   <div class="center jumbotron">
     <div class="text-center">
       <h1>機材別管理表</h1>
-      <h2>ログイン</h2>
-    </div>
-    <div class="link">
       <%= link_to '新規ユーザ登録', signup_path, class: 'btn btn-lg btn-success' %>
     </div>
   </div>

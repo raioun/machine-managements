@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  bafore_action:require_user_logged_in
+  before_action :require_user_logged_in
   
   def new
     @customer = Customer.new
@@ -12,7 +12,7 @@ class CustomersController < ApplicationController
       flash[:success] = '顧客を登録しました。'
       redirect_to root_url
     else
-      flash[:danger] = '顧客の登録に失敗しました。'
+      flash.now[:danger] = '顧客の登録に失敗しました。'
       render :new
     end
   end

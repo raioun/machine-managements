@@ -1,0 +1,12 @@
+<div>
+  <p>現場ID：<%= @place.id %></p>
+</div>
+<div>
+  <p>現場名：<%= @place.name %></p>
+</div>
+<div>
+  <p>住所：<%= @place.address %></p>
+</div>
+<div>
+  <%= link_to '編集', edit_place_path(@place), class: 'btn btn-primary btn-block' %>
+</div>
