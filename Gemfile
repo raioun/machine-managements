@@ -57,3 +57,5 @@ gem 'kaminari'
 # gem 'will_paginate'
 
 # gem 'ransack'
+
+gem 'validates_timeliness', '~> 5.0.0.alpha3'

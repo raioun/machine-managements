@@ -11,6 +11,7 @@ class Order < ApplicationRecord
   validates :in_time, length: { maximum: 20 }
   
   enum status:{予約中: 0, 出庫中: 1, 返却済み: 2}
+  
 
   validates_date :in_date, after: :out_date,
                        after_message: 'は、out_dateより先に設定できません。'
