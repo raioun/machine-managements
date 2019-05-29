@@ -1,0 +1,44 @@
+<div>
+  <p>現場ID：<%= @project.id %></p>
+</div>
+<div>
+  <p>顧客企業名：<%= @project.customer.name %></p>
+</div>
+<div>
+  <p>現場名：<%= @project.name %></p>
+</div>
+<div>
+  <p>住所：<%= @project.address %></p>
+</div>
+<div>
+  <%= link_to '編集', edit_project_path(@project), class: 'btn btn-warning btn-block' %>
+</div>
+<div class ="text-center">
+  <p><%= link_to '現場一覧へ戻る', projects_path %></p>
+</div>
+<div class="text-center">
+  <h1>この現場の案件一覧</h1>
+</div>
+<div class="text-center">
+  <h2>検索フォーム</h2>
+</div>
+<div class="text-center">
+  <%= form_tag project_path, :method => 'get' do |f| %>
+  
+    <div class="text-center">
+      <%= label :status, '状態' %>
+      <%= text_field_tag :status, params[:status] %>
+    </div>
+    
+    <div class="text-center">
+      <%= label :out_date, '出庫日' %>
+      <%= text_field_tag :out_date, params[:out_date] %>
+      <%= label :in_date, '返却日' %>
+      <%= text_field_tag :in_date, params[:in_date] %>
+    </div>
+    
+    <div><%= submit_tag '検索', :name => nil %></div>
+  <% end %>
+</div>
+
+<%= render 'orders/orders', orders: @orders %>

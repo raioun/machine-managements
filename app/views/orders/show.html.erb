@@ -1,0 +1,45 @@
+<h1>案件ID：<%= @order.id %>の詳細ページ</h1>
+<div>
+  <p>状態：<%= @order.status %></p>
+</div>
+<div>
+  <p>出庫日時：<%= @order.out_date %>/<%= @order.out_time %></p>
+</div>
+<div>
+  <p>入庫日時：<%= @order.in_date %>/<%= @order.in_time %></p>
+</div>
+<div>
+  <p>応対者：<%= @order.user.name %></p>
+</div>
+<div>
+  <p>顧客名：<%= @order.project.customer.name %></p>
+</div>
+<div>
+  <p>現場名：<%= @order.project.name %></p>
+</div>
+<div>
+  <p>発注者名：<%= @order.orderer.family_name %><%= @order.orderer.first_name %>/<%= @order.orderer.phone_number %></p>
+</div>
+<div>
+  <p>機材名：<%= @order.rental_machine.machine.name %>/<%= @order.rental_machine.machine.type1 %>/<%= @order.rental_machine.machine.type2 %></p>
+</div>
+<div>
+  <p>機番：<%= @order.rental_machine.code %></p>
+</div>
+<div>
+  <p>予約日時：<%= @order.created_at %></p>
+</div>
+<div>
+  <p>変更日時：<%= @order.updated_at %></p>
+</div>
+<div>
+  <%= link_to '編集', edit_order_path(@order), class: 'btn btn-warning btn-block' %>
+</div>
+<div>
+  <% if @order.status == '予約中' %>
+    <%= link_to "案件削除", @order, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class:'btn btn-danger btn-block' %>
+  <% end %>
+</div>
+<div class ="text-center">
+  <p><%= link_to '案件一覧へ戻る', orders_path %></p>
+</div>

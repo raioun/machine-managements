@@ -1,0 +1,13 @@
+<ul class="media-list">
+  <% users.each do |user| %>
+    <li class="media">
+      <div>
+        <p>ユーザ名：<%= user.name %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', user_path(user), class: 'btn btn-primary btn-block' %>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate users %>
+</ul>

@@ -1,0 +1,16 @@
+<ul class="media-list">
+  <% projects.each do |project| %>
+    <li class="media">
+      <div>
+        <p>顧客企業名：<%= project.customer.name %></p>
+      </div>
+      <div>
+        <p>現場名：<%= project.name %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', project_path(project), class: 'btn btn-primary btn-block' %>
+      </div>
+    </li>
+  <% end %>
+
+</ul>

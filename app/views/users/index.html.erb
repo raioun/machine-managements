@@ -1,0 +1,16 @@
+<div class="text-center">
+  <h1>ユーザ検索フォーム</h1>
+</div>
+<div class="text-center">
+  <%= form_tag users_path, :method => 'get' do |f| %>
+  
+    <div class="form-group">
+      <%= label :user, 'ユーザ名' %>
+      <%= text_field_tag :user, params[:user] %>
+    </div>
+    
+    <div><%= submit_tag '検索', :name => nil %></div>
+  <% end %>
+</div>
+
+<%= render 'users', users: @users %>

@@ -1,0 +1,16 @@
+<ul class="media-list">
+  <% orderers.each do |orderer| %>
+    <li class="media">
+      <div>
+        <p>顧客企業名：<%= orderer.customer.name %></p>
+      </div>
+      <div>
+        <p>発注者名：<%= orderer.family_name %><%= orderer.first_name %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', orderer_path(orderer), class: 'btn btn-primary btn-block' %>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate orderers %>
+</ul>

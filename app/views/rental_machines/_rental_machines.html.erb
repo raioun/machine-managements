@@ -1,0 +1,19 @@
+<ul class="media-list">
+  <% rental_machines.each do |rental_machine| %>
+    <li class="media">
+      <div>
+        <p>機材名：<%= rental_machine.machine.name %>/<%= rental_machine.machine.type1 %>/<%= rental_machine.machine.type2 %></p>
+      </div>
+      <div>
+        <p>機番：<%= rental_machine.code %></p>
+      </div>
+      <div>
+        <p>所有営業所名：<%= rental_machine.branch.company.name %><%= rental_machine.branch.name %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', rental_machine_path(rental_machine), class: 'btn btn-primary btn-block' %>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate rental_machines %>
+</ul>

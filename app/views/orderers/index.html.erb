@@ -1,0 +1,21 @@
+<div class="text-center">
+  <h1>発注者検索フォーム</h1>
+</div>
+<div class="text-center">
+  <%= form_tag orderers_path, :method => 'get' do |f| %>
+  
+    <div class="form-group">
+      <%= label :customer, '顧客企業名' %>
+      <%= text_field_tag :customer, params[:customer] %>
+    </div>
+    
+    <div class="form-group">
+      <%= label :orderer, '発注者苗字' %>
+      <%= text_field_tag :orderer, params[:orderer] %>
+    </div>
+    
+    <div><%= submit_tag "検索", :name => nil, :family_name => nil %></div>
+  <% end %>
+</div>
+
+<%= render 'orderers', orderers: @orderers %>

@@ -6,8 +6,27 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   get 'signup', to: 'users#new'
-  resources :users, only: [:new, :create]
+  resources :users, only: [:index, :show, :new, :create]
   
-  resources :customers, only: [:new, :create]
-  resources :places, only: [:index, :show, :new, :create, :edit, :update]
+  resources :customers, only: [:index, :show, :new, :create]
+  
+  resources :projects, only: [:index, :show, :new, :create, :edit, :update]
+  
+  resources :orderers, only: [:index, :show, :new, :create, :edit, :update]
+  
+  resources :companies, only: [:index, :show, :new, :create]
+  
+  resources :branches, only: [:index, :show, :new, :create, :edit, :update]
+  
+  resources :machines, only: [:index, :show, :new, :create]
+  
+  resources :rental_machines, only: [:index, :show, :new, :create, :edit, :update]
+  
+  resources :orders do
+    collection do
+      get :reservations
+      get :uses
+      get :cominghomes
+    end
+  end
 end
