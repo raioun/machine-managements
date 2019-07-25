@@ -8,7 +8,10 @@
         <p>現場名：<%= project.name %></p>
       </div>
       <div>
-        <%= link_to '詳細', project_path(project), class: 'btn btn-primary btn-block' %>
+        <p>状態：<%= project.status %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', project_path(project), class: 'btn btn-primary' %>
       </div>
     </li>
   <% end %>

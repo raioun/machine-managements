@@ -8,7 +8,10 @@
         <p>発注者名：<%= orderer.family_name %><%= orderer.first_name %></p>
       </div>
       <div>
-        <%= link_to '詳細', orderer_path(orderer), class: 'btn btn-primary btn-block' %>
+        <p>状態：<%= orderer.status %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', orderer_path(orderer), class: 'btn btn-primary' %>
       </div>
     </li>
   <% end %>

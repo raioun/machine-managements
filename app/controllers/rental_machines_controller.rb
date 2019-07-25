@@ -17,13 +17,19 @@ class RentalMachinesController < ApplicationController
     @rental_machines = @rental_machines.where(branch_id: @branches.pluck(:id)) if @branches
     
     @rental_machines = @rental_machines.where('code LIKE?', "%#{params[:code]}%") if params[:code].present?
+    
+    @rental_machines = @rental_machines.where(status: params[:rental][:status].to_i) if params[:rental].present?
+    
+    # binding.pry
   end
 
   def show
     @rental_machine = RentalMachine.find(params[:id])
     
     @orders = @rental_machine.orders.order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @orders = @orders.where(status: params[:status]) if params[:status].present?
+    
+    @orders = @orders.where(status: params[:order][:status].to_i) if params[:order].present?
+    
     @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
     @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
   end
@@ -63,6 +69,6 @@ class RentalMachinesController < ApplicationController
   private
   
   def rental_machine_params
-    params.require(:rental_machine).permit(:machine_id, :branch_id, :code)
+    params.require(:rental_machine).permit(:machine_id, :branch_id, :code, :status, :remarks)
   end
 end

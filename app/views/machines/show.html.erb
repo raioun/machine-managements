@@ -25,6 +25,8 @@
     <div class="form-group">
       <%= label :code, '機番' %>
       <%= text_field_tag :code, params[:code] %>
+      <%= label :status, '状態' %>
+      <%= text_field_tag :status, params[:status] %>
     </div>
     
     <div><%= submit_tag '検索', :name => nil %></div>

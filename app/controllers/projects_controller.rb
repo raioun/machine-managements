@@ -5,14 +5,15 @@ class ProjectsController < ApplicationController
     @projects = Project.all.includes(:customer).order('created_at DESC').page(params[:page])
     @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
     @projects = @projects.where(customer_id: @customers.pluck(:id)) if @customers
-    @projects = @projects.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @projects = @projects.where('name LIKE?', "%#{params[:name]}%") if params[:name].present?
+    @projects = @projects.where(status: params[:project][:status].to_i) if params[:project].present?
   end
   
   def show
     @project = Project.find(params[:id])
     
     @orders = @project.orders.order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @orders = @orders.where(status: params[:status]) if params[:status].present?
+    @orders = @orders.where(status: params[:order][:status].to_i) if params[:order].present?
     @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
     @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
   end
@@ -52,6 +53,6 @@ class ProjectsController < ApplicationController
   private
   
   def project_params
-    params.require(:project).permit(:customer_id, :name, :address)
+    params.require(:project).permit(:customer_id, :name, :address, :status, :remarks)
   end
 end

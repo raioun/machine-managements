@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(version: 20190428014043) do
     t.string   "family_name"
     t.string   "first_name"
     t.string   "phone_number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "status",       limit: 1, default: 0, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["customer_id"], name: "index_orderers_on_customer_id", using: :btree
   end
 
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20190428014043) do
     t.integer  "orderer_id"
     t.integer  "rental_machine_id"
     t.integer  "user_id"
+    t.string   "remarks"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.index ["orderer_id"], name: "index_orders_on_orderer_id", using: :btree
@@ -73,8 +75,9 @@ ActiveRecord::Schema.define(version: 20190428014043) do
     t.integer  "customer_id"
     t.string   "name"
     t.string   "address"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "status",      limit: 1, default: 0, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.index ["customer_id"], name: "index_projects_on_customer_id", using: :btree
   end
 
@@ -82,8 +85,10 @@ ActiveRecord::Schema.define(version: 20190428014043) do
     t.string   "code"
     t.integer  "machine_id"
     t.integer  "branch_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "status",     limit: 1, default: 0, null: false
+    t.string   "remarks"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["branch_id"], name: "index_rental_machines_on_branch_id", using: :btree
     t.index ["machine_id"], name: "index_rental_machines_on_machine_id", using: :btree
   end
@@ -91,8 +96,9 @@ ActiveRecord::Schema.define(version: 20190428014043) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "status",          limit: 1, default: 0, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_foreign_key "branches", "companies"

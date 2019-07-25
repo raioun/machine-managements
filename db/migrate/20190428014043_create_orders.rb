@@ -10,6 +10,7 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       t.references :orderer, foreign_key: true
       t.references :rental_machine, foreign_key: true
       t.references :user, foreign_key: true
+      t.string :remarks
 
       t.timestamps
     end

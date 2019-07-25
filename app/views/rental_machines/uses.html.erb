@@ -41,18 +41,12 @@
 <div class="text-center">
   <h2>検索フォーム</h2>
 </div>
-
-<% if params[:order].nil? %>
-<%= selected = nil %>
-<%else %>
-<%= selected = params[:order][:status] %>
-<%end%>
 <div class="text-center">
   <%= form_tag rental_machine_path, :method => 'get' do |f| %>
   
     <div class="text-center">
       <%= label :status, '状態' %>
-      <%= select :order,:status, {予約中: 0, 出庫中: 1, 返却済み: 2},selected:  selected %>
+      <%= text_field_tag :status, params[:status] %>
     </div>
     
     <div class="text-center">
@@ -66,4 +60,12 @@
   <% end %>
 </div>
 
-<%= render 'orders/orders', orders: @orders %>
+<div class="col-xs-6">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="<%= 'active' if current_page?(rental_machine_path(@rental_machine)) %>"><%= link_to rental_machine_path(@rental_machine) do %>全ての案件<% end %></li>
+    <li class="<%= 'active' if current_page?(reservations_rental_machines_path(@rental_machine)) %>"><%= link_to reservations_rental_machines_path(@rental_machine) do %>予約中の案件<% end %></li>
+    <li class="<%= 'active' if current_page?(uses_rental_machines_path(@rental_machine)) %>"><%= link_to uses_rental_machines_path(@rental_machine) do %>出庫中の案件<% end %></li>
+    <li class="<%= 'active' if current_page?(cominghomes_rental_machines_path(@rental_machine)) %>"><%= link_to cominghomes_rental_machines_path(@rental_machine) do %>返却済みの案件<% end %></li>
+  </ul>
+
+<%= render 'orders/orders', orders: @uses %>

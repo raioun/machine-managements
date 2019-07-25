@@ -1,6 +1,12 @@
 <div class="text-center">
   <h1>レンタル機材検索フォーム</h1>
 </div>
+
+<% if params[:rental].nil? %>
+<%= selected = nil %>
+<%else %>
+<%= selected = params[:rental][:status] %>
+<%end%>
 <div class="text-center">
   <%= form_tag rental_machines_path, :method => 'get' do |f| %>
   
@@ -20,10 +26,12 @@
       <%= text_field_tag :branch, params[:branch] %>
       <%= label :code, '機番' %>
       <%= text_field_tag :code, params[:code] %>
+      <%= label :status, '状態' %>
+      <%= select :rental,:status, {良品: 0, 重整備: 1, 廃棄済み: 2},selected:  selected %>
     </div>
 
     <div><%= submit_tag '検索', :name => nil %></div>
   <% end %>
 </div>
-
+<%# <% binding.pry %>
 <%= render 'rental_machines', rental_machines: @rental_machines %>

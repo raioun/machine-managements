@@ -12,6 +12,8 @@ class Order < ApplicationRecord
   
   enum status:{予約中: 0, 出庫中: 1, 返却済み: 2}
   
+  validates :remarks, length: { maximum: 100 }
+  
 
   validates_date :in_date, after: :out_date,
                        after_message: 'は、out_dateより先に設定できません。'
@@ -24,68 +26,54 @@ class Order < ApplicationRecord
   private
     def start_end_renge_check
       record = self
-      # reservations = Reservation.all
-      orders = Order.where(rental_machine_id: self.id)
+      # binding pry
+      orders = Order.where(rental_machine_id: self.rental_machine.id) if self
+      orders = orders.where.not(id: self.id) if self.id.present?
+      
+      # if self
+      #   orders = Order.where(rental_machine_id: self.rental_machine.id)
+      #   orders = orders.where.not(id: self.id)
+      # else
+      #   orders = Order.all
+      #   orders = orders.where(rental_machine_id: rental_machine.id)
+      # end
+      
       orders.each do |order|
-        p order
-        
-        print "もともとあるレコードのout_dateは登録するレコードのout_dateより未来か？ ："
-        p order.out_date > record.out_date
-        print "もともとあるレコードのout_dateは登録するレコードのin_dateより未来か？　："
-        p order.out_date > record.in_date
-        print "もともとあるレコードのout_dateは登録するレコードのout_dateと同じか？　："
-        p order.out_date == record.out_date
-        print "もともとあるレコードのout_dateは登録するレコードのin_dateと同じか？　："
-        p order.out_date == record.in_date
-        print "もともとあるレコードのout_dateは登録するレコードのout_dateより過去か？　："
-        p order.out_date < record.out_date
-        print "もともとあるレコードのout_dateは登録するレコードのin_dateより過去か？　："
-        p order.out_date < record.in_date
-        
-        print "もともとあるレコードのin_dateは登録するレコードのout_dateより未来か？ ："
-        p order.in_date > record.out_date
-        print "もともとあるレコードのin_dateは登録するレコードのin_dateより未来か？　："
-        p order.in_date > record.in_date
-        print "もともとあるレコードのin_dateは登録するレコードのout_dateと同じか？　："
-        p order.in_date == record.out_date
-        print "もともとあるレコードのin_dateは登録するレコードのin_dateと同じか？　："
-        p order.in_date == record.in_date
-        print "もともとあるレコードのin_dateは登録するレコードのout_dateより過去か？　："
-        p order.in_date < record.out_date
-        print "もともとあるレコードのin_dateは登録するレコードのin_dateより過去か？　："
-        p order.in_date < record.in_date
-        
+
         if order.out_date > record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date < record.in_date
-          errors.add(:out_date, ":他のレコードと期間が重複します")
-          errors.add(:in_date, ":他のレコードと期間が重複します。")
+          errors.add(:out_date, ":他の予定と期間が重複します")
+          errors.add(:in_date, ":他の予定と期間が重複します。")
         end
         
         if order.out_date == record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date < record.in_date
-          errors.add(:out_date, ":他のレコードと期間が重複します")
+          errors.add(:out_date, ":他の予定と期間が重複します")
         end
         
         if order.out_date > record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date == record.in_date
-          errors.add(:in_date, ":他のレコードと期間が重複します。")
+          errors.add(:in_date, ":他の予定と期間が重複します。")
         end
         
         
         
         if order.out_date <= record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date >= record.in_date
-          errors.add(:out_date, ":他のレコードと期間が重複します")
-          errors.add(:in_date, ":他のレコードと期間が重複します。")
+          errors.add(:out_date, ":他の予定と期間が重複します")
+          errors.add(:in_date, ":他の予定と期間が重複します。")
         end
       
 
 
         if order.out_date < record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date < record.in_date
-          errors.add(:out_date, ":他のレコードと期間が重複します。")
+          errors.add(:out_date, ":他の予定と期間が重複します。")
         end
         
         
         
         if order.out_date > record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date > record.in_date
-          errors.add(:in_date, ":他のレコードと期間が重複します。")
+          errors.add(:in_date, ":他の予定と期間が重複します。")
         end
+        
       end
     end
+    
+    
 end

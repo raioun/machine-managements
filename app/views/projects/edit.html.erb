@@ -23,7 +23,12 @@
           <%= f.text_field :address, class: 'form-control' %>
         </div>
         
-      <%= f.submit '登録', class: 'btn btn-success btn-block' %>
+        <div class="form-group">
+          <%= f.label :status, '状態' %>
+          <%= f.select :status, Project.statuses.keys.to_a, {}, class: 'form-control' %>
+        </div>
+        
+      <%= f.submit '登録', class: 'btn btn-success' %>
     <% end %>
   </div>
 </div>

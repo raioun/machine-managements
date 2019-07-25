@@ -20,6 +20,8 @@
     <div class="form-group">
       <%= label :orderer, '発注者名(苗字のみ)' %>
       <%= text_field_tag :orderer, params[:orderer] %>
+      <%= label :status, '状態' %>
+      <%= text_field_tag :status, params[:status] %>
     </div>
     
     <div><%= submit_tag '検索', :name => nil %></div>

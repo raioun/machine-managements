@@ -17,6 +17,7 @@ class BranchesController < ApplicationController
     @machines = @machines.where('type2 LIKE?', "%#{params[:type2]}%") if params[:type2].present?
     @rental_machines = @rental_machines.where(machine_id: @machines.pluck(:id)) if @machines
     @rental_machines = @rental_machines.where('code LIKE?', "%#{params[:code]}%") if params[:code].present?
+    @rental_machines = @rental_machines.where(status: params[:status]) if params[:status].present?
   end
 
   def new

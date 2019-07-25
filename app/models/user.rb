@@ -7,4 +7,6 @@ class User < ApplicationRecord
   has_many :projects, through: :orders
   has_many :orderers, through: :orders
   has_many :rental_machines, through: :orders
+  
+  enum status:{在籍中: 0, 退社済み: 1}
 end

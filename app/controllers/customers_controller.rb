@@ -13,6 +13,7 @@ class CustomersController < ApplicationController
     @projects = @projects.where('name LIKE?', "%#{params[:name]}%") if params[:name].present?
     @orderers = @customer.orderers.order('created_at').page(params[:page])
     @orderers = @orderers.where('family_name LIKE?', "%#{params[:orderer]}%") if params[:orderer].present?
+    @orderers = @orderers.where(status: params[:status]) if params[:status].present?
   end
   
   def new

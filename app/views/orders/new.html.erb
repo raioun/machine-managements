@@ -9,7 +9,7 @@
       <%= render 'layouts/error_messages', model: f.object %>
       
         <div class="form-group">
-          <%= f.label :out_date, '出庫日' %>
+          <%= f.label :out_date, '出庫日(out_date)' %>
           <%= f.date_select :out_date, class: 'form-control date_picker' %>
         </div>
         
@@ -19,7 +19,7 @@
         </div>
         
         <div class="form-group">
-          <%= f.label :in_date, '入庫日' %>
+          <%= f.label :in_date, '入庫日(in_date)' %>
           <%= f.date_select :in_date, class: 'form-control date_picker' %>
         </div>
         
@@ -45,10 +45,26 @@
         
         <div class="form-group">
           <%= f.label :rental_machine_id, '機材名' %>
-          <%= f.collection_select :rental_machine_id, RentalMachine.all, :id, :rental_machine_full_name %>
+          <% if params[:rental_machine_id].present? %>
+            <%= f.collection_select :rental_machine_id, RentalMachine.all, :id, :rental_machine_full_name, { selected: params[:rental_machine_id], disabled: true }, {class: "mySelect2"} %>
+          <% else %>
+            <%= f.collection_select :rental_machine_id, RentalMachine.all, :id, :rental_machine_full_name, {}, {class: "mySelect2"} %>
+          <% end %>
+        
+        <div>
+          <%= f.label :remarks, '備考' %>
+          <%= f.text_field :remarks, class: 'form-control' %>
         </div>
         
-      <%= f.submit '登録', class: 'btn btn-success btn-block' %>
+        <%= f.hidden_field :rental_machine_id %>
+        
+      <%= f.submit '登録', class: 'btn btn-success' %>
     <% end %>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $('.mySelect2').select2();
+});
+</script>

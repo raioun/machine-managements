@@ -12,7 +12,12 @@
  *
  *= require_tree .
  *= require_self
+ *= require select2
  */
+
+
+
+
 
 .navbar-header{
   background-color: lawngreen;

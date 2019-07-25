@@ -5,6 +5,7 @@ class CreateOrderers < ActiveRecord::Migration[5.0]
       t.string :family_name
       t.string :first_name
       t.string :phone_number
+      t.integer :status,default: 0, null: false, limit: 1
 
       t.timestamps
     end

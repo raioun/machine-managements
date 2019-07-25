@@ -5,7 +5,10 @@
         <p>ユーザ名：<%= user.name %></p>
       </div>
       <div>
-        <%= link_to '詳細', user_path(user), class: 'btn btn-primary btn-block' %>
+        <p>状態：<%= user.status %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', user_path(user), class: 'btn btn-primary' %>
       </div>
     </li>
   <% end %>

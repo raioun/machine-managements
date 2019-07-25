@@ -20,7 +20,10 @@
         <p>機番：<%= order.rental_machine.code %></p>
       </div>
       <div>
-        <%= link_to '詳細', order_path(order), class: 'btn btn-primary btn-block' %>
+        <p>備考欄：<%= order.remarks %></p>
+      </div>
+      <div>
+        <%= link_to '詳細', order_path(order), class: 'btn btn-primary' %>
       </div>
     </li>
   <% end %>

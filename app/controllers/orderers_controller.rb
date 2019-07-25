@@ -5,14 +5,15 @@ class OrderersController < ApplicationController
     @orderers = Orderer.all.includes(:customer).page(params[:page])
     @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
     @orderers = @orderers.where(customer_id: @customers.pluck(:id)) if @customers
-    @orderers = @orderers.where('family_name LIKE?', "%#{params[:orderer]}%") if params[:orderer].present?
+    @orderers = @orderers.where('family_name LIKE?', "%#{params[:family_name]}%") if params[:family_name].present?
+    @orderers = @orderers.where(status: params[:orderer][:status].to_i) if params[:orderer].present?
   end
 
   def show
     @orderer = Orderer.find(params[:id])
     
     @orders = @orderer.orders.order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @orders = @orders.where(status: params[:status]) if params[:status].present?
+    @orders = @orders.where(status: params[:order][:status].to_i) if params[:order].present?
     @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
     @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
   end
@@ -52,6 +53,6 @@ class OrderersController < ApplicationController
   private
   
   def orderer_params
-    params.require(:orderer).permit(:customer_id, :family_name, :first_name, :phone_number)
+    params.require(:orderer).permit(:customer_id, :family_name, :first_name, :phone_number, :status, :remarks)
   end
 end

@@ -44,12 +44,12 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    @order = Order.new(rental_machine_id: params[:rental_machine_id])
   end
 
   def create
     @order = Order.new(order_params)
-    
+  
     if @order.save
       flash[:success] = '案件を登録しました。'
       redirect_to root_url
@@ -205,6 +205,6 @@ class OrdersController < ApplicationController
   private
   
   def order_params
-    params.require(:order).permit(:out_date, :out_time, :in_date, :in_time, :status, :project_id, :rental_machine_id, :orderer_id, :user_id)
+    params.require(:order).permit(:out_date, :out_time, :in_date, :in_time, :status, :project_id, :rental_machine_id, :orderer_id, :user_id, :remarks)
   end
 end

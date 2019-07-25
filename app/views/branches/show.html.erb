@@ -11,7 +11,7 @@
   <p>住所：<%= @branch.address %></p>
 </div>
 <div>
-  <%= link_to '編集', edit_branch_path(@branch), class: 'btn btn-warning btn-block' %>
+  <%= link_to '編集', edit_branch_path(@branch), class: 'btn btn-warning' %>
 </div>
 <div class ="text-center">
   <p><%= link_to '営業所一覧へ戻る', branches_path %></p>
@@ -34,6 +34,8 @@
       <%= text_field_tag :type2, params[:type2] %>
       <%= label :code, '機番' %>
       <%= text_field_tag :code, params[:code] %>
+      <%= label :status, '状態' %>
+      <%= text_field_tag :status, params[:status] %>
     </div>
 
     <div><%= submit_tag '検索', :name => nil %></div>
