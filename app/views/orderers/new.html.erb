@@ -10,7 +10,7 @@
       
         <div class="form-group">
           <%= f.label :customer_id, '顧客企業名' %>
-          <%= f.collection_select :customer_id, Customer.all, :id, :name %>
+          <%= f.collection_select :customer_id, Customer.all, :id, :name, {}, {class: "mySelect2"} %>
         </div>
     
         <div class="form-group">
@@ -32,3 +32,9 @@
     <% end %>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $('.mySelect2').select2();
+});
+</script>

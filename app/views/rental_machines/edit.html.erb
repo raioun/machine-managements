@@ -10,12 +10,12 @@
       
         <div class="form-group">
           <%= f.label :machine_id, '機材名' %>
-          <%= f.collection_select :machine_id, Machine.all, :id, :machine_full_name %>
+          <%= f.collection_select :machine_id, Machine.all, :id, :machine_full_name, {}, {class: "mySelect2"} %>
         </div>
         
         <div class="form-group">
           <%= f.label :branch_id, '所有営業所名' %>
-          <%= f.collection_select :branch_id, Branch.all, :id, :branch_full_name %>
+          <%= f.collection_select :branch_id, Branch.all, :id, :branch_full_name, {}, {class: "mySelect2"} %>
         </div>
         
         <div class="form-group">
@@ -38,3 +38,9 @@
     <% end %>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $('.mySelect2').select2();
+});
+</script>
