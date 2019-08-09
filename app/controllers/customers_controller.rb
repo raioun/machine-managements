@@ -32,6 +32,22 @@ class CustomersController < ApplicationController
     end
   end
   
+  def edit
+    @customer = Customer.find(params[:id])
+  end
+  
+  def update
+    @customer = Customer.find(params[:id])
+    
+    if @customer.update(customer_params)
+    flash[:success] = '顧客企業を編集しました。'
+      redirect_to @company
+    else
+      flash.now[:danger] = '顧客企業の編集に失敗しました。'
+      render :edit
+    end
+  end
+  
   private
   
   def customer_params

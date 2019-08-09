@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
   
-  resources :customers, only: [:index, :show, :new, :create]
+  resources :customers, only: [:index, :show, :new, :create, :edit, :update]
   
   resources :projects, only: [:index, :show, :new, :create, :edit, :update]
   
   resources :orderers, only: [:index, :show, :new, :create, :edit, :update]
   
-  resources :companies, only: [:index, :show, :new, :create]
+  resources :companies, only: [:index, :show, :new, :create, :edit, :update]
   
   resources :branches, only: [:index, :show, :new, :create, :edit, :update]
   

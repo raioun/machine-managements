@@ -27,6 +27,22 @@ class CompaniesController < ApplicationController
     end
   end
   
+  def edit
+    @company = Company.find(params[:id])
+  end
+  
+  def update
+    @company = Company.find(params[:id])
+    
+    if @company.update(customer_params)
+    flash[:success] = '顧客企業を編集しました。'
+      redirect_to @company
+    else
+      flash.now[:danger] = '顧客企業の編集に失敗しました。'
+      render :edit
+    end
+  end
+  
   private
   
   def company_params

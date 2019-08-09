@@ -4,6 +4,9 @@
 <div>
   <p>顧客企業名：<%= @customer.name %></p>
 </div>
+<div>
+  <%= link_to '編集', edit_customer_path(@customer), class: 'btn btn-warning' %>
+</div>
 <div class ="text-center">
   <p><%= link_to '顧客企業一覧へ戻る', customers_path %></p>
 </div>
