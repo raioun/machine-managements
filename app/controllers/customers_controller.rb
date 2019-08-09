@@ -41,7 +41,7 @@ class CustomersController < ApplicationController
     
     if @customer.update(customer_params)
     flash[:success] = '顧客企業を編集しました。'
-      redirect_to @company
+      redirect_to @customer
     else
       flash.now[:danger] = '顧客企業の編集に失敗しました。'
       render :edit
