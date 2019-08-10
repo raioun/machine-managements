@@ -18,8 +18,8 @@ class Order < ApplicationRecord
   validates_date :in_date, after: :out_date,
                        after_message: 'は、out_dateより先に設定できません。'
                        
-  validates_date :out_date, on_or_after: lambda { Date.current },
-                         on_or_after_message: 'は、過去の日付にはできません。'
+  # validates_date :out_date, on_or_after: lambda { Date.current },
+  #                       on_or_after_message: 'は、過去の日付にはできません。'
   
   validate :start_end_renge_check
   

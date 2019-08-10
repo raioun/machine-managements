@@ -30,17 +30,17 @@
       
         <div class="form-group">
           <%= f.label :user_id, '応対者名' %>
-          <%= f.collection_select :user_id, User.all, :id, :name %>
+          <%= f.collection_select :user_id, User.all, :id, :name, {}, {class: "mySelect2"} %>
         </div>
         
         <div class="form-group">
           <%= f.label :project_id, '現場名' %>
-          <%= f.collection_select :project_id, Project.all, :id, :project_full_name %>
+          <%= f.collection_select :project_id, Project.all, :id, :project_full_name, {}, {class: "mySelect2"} %>
         </div>
         
         <div class="form-group">
           <%= f.label :orderer_id, '発注者名' %>
-          <%= f.collection_select :orderer_id, Orderer.all, :id, :orderer_full_name %>
+          <%= f.collection_select :orderer_id, Orderer.all, :id, :orderer_full_name, {}, {class: "mySelect2"} %>
         </div>
         
         <div class="form-group">
