@@ -5,6 +5,7 @@ class Machine < ApplicationRecord
   
   has_many :rental_machines
   has_many :branches, through: :rental_machines
+  has_many :storages, through: :rental_machines
   
   def machine_full_name
     self.name + '/' + self.type1 + '/' + self.type2

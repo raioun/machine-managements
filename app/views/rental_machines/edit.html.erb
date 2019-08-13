@@ -19,6 +19,11 @@
         </div>
         
         <div class="form-group">
+          <%= f.label :storage_id, '保管場所' %>
+          <%= f.collection_select :storage_id, Storage.all, :id, :storage_full_name, {}, {class: "mySelect2"} %>
+        </div>
+        
+        <div class="form-group">
           <%= f.label :code, '機番' %>
           <%= f.text_field :code, class: 'form-control' %>
         </div>

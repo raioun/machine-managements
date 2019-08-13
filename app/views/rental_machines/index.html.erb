@@ -17,6 +17,8 @@
       <%= text_field_tag :type1, params[:type1] %>
       <%= label :type2, '型式2' %>
       <%= text_field_tag :type2, params[:type2] %>
+      <%= label :code, '機番' %>
+      <%= text_field_tag :code, params[:code] %>
     </div>
 
     <div class="form-group">
@@ -24,8 +26,10 @@
       <%= text_field_tag :company, params[:company] %>
       <%= label :branch, '所有営業所名' %>
       <%= text_field_tag :branch, params[:branch] %>
-      <%= label :code, '機番' %>
-      <%= text_field_tag :code, params[:code] %>
+      <%= label :storage_company, '保管企業名' %>
+      <%= text_field_tag :storage_company, params[:storage_company] %>
+      <%= label :storage, '保管場所名' %>
+      <%= text_field_tag :storage, params[:storage] %>
       <%= label :status, '状態' %>
       <%= select :rental,:status, {良品: 0, 重整備: 1, 廃棄済み: 2},selected:  selected %>
     </div>

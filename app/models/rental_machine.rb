@@ -1,6 +1,7 @@
 class RentalMachine < ApplicationRecord
   belongs_to :machine
   belongs_to :branch
+  belongs_to :storage
   
   # validates :machine
   

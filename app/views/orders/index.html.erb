@@ -5,10 +5,10 @@
   <%= form_tag orders_path, :method => 'get' do |f| %>
   
     <div class="form-group">
-      <%= label :out_date, '出庫日' %>
+      <%= label :out_date, '出庫日※故障のため、修理中' %>
       <%= text_field_tag :out_date, params[:out_date] %>
       <%# <%= text_field_tag :out_date, params[:out_date], pattern: "\y{4}-\m{2}-\d{2}", placeholder: "2019-01-01" %>
-      <%= label :in_date, '入庫日' %>
+      <%= label :in_date, '入庫日※故障のため、修理中' %>
       <%= text_field_tag :in_date, params[:in_date] %>
       <%= label :user, '応対ユーザ名' %>
       <%= text_field_tag :user, params[:user] %>

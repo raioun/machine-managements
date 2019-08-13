@@ -2,12 +2,14 @@ class RentalMachinesController < ApplicationController
   before_action :require_user_logged_in
   
   def index
-    @rental_machines = RentalMachine.all.includes(:machine).includes(:branch).page(params[:page])
+    @rental_machines = RentalMachine.all.includes(:machine).includes(:branch).includes(:storage).page(params[:page])
     @machines = Machine.all
     @machines = @machines.where('name LIKE?', "%#{params[:machine]}%") if params[:machine].present?
     @machines = @machines.where('type1 LIKE?', "%#{params[:type1]}%") if params[:type1].present?
     @machines = @machines.where('type2 LIKE?', "%#{params[:type2]}%") if params[:type2].present?
     @rental_machines = @rental_machines.where(machine_id: @machines.pluck(:id)) if @machines
+    
+    @rental_machines = @rental_machines.where('code LIKE?', "%#{params[:code]}%") if params[:code].present?
 
     @companies = Company.where('name LIKE?', "%#{params[:company]}%") if params[:company].present?
     @branches = Branch.where(company_id: @companies.pluck(:id)) if @companies
@@ -16,10 +18,13 @@ class RentalMachinesController < ApplicationController
     @branches = Branch.where('name LIKE?', "%#{params[:branch]}%") if params[:branch].present?
     @rental_machines = @rental_machines.where(branch_id: @branches.pluck(:id)) if @branches
     
-    @rental_machines = @rental_machines.where('code LIKE?', "%#{params[:code]}%") if params[:code].present?
+    @storage_companies = Company.where('name LIKE?', "%#{params[:storage_company]}%") if params[:storage_company].present?
+    @storages = Storage.where(company_id: @storage_companies.pluck(:id)) if @storage_companies
+    
+    @storages = Storage.where('name LIKE?', "%#{params[:storage]}%") if params[:storage].present?
+    @rental_machines = @rental_machines.where(storage_id: @storages.pluck(:id)) if @storages
     
     @rental_machines = @rental_machines.where(status: params[:rental][:status].to_i) if params[:rental].present?
-    
     # binding.pry
   end
 
@@ -69,6 +74,6 @@ class RentalMachinesController < ApplicationController
   private
   
   def rental_machine_params
-    params.require(:rental_machine).permit(:machine_id, :branch_id, :code, :status, :remarks)
+    params.require(:rental_machine).permit(:machine_id, :branch_id, :storage_id, :code, :status, :remarks)
   end
 end

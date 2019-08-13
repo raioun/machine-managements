@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190428014043) do
+ActiveRecord::Schema.define(version: 20190813054109) do
 
   create_table "branches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -89,8 +89,19 @@ ActiveRecord::Schema.define(version: 20190428014043) do
     t.string   "remarks"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "storage_id"
     t.index ["branch_id"], name: "index_rental_machines_on_branch_id", using: :btree
     t.index ["machine_id"], name: "index_rental_machines_on_machine_id", using: :btree
+    t.index ["storage_id"], name: "index_rental_machines_on_storage_id", using: :btree
+  end
+
+  create_table "storages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_storages_on_company_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -110,4 +121,6 @@ ActiveRecord::Schema.define(version: 20190428014043) do
   add_foreign_key "projects", "customers"
   add_foreign_key "rental_machines", "branches"
   add_foreign_key "rental_machines", "machines"
+  add_foreign_key "rental_machines", "storages"
+  add_foreign_key "storages", "companies"
 end

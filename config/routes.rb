@@ -20,13 +20,14 @@ Rails.application.routes.draw do
   
   resources :machines, only: [:index, :show, :new, :create]
   
-  resources :rental_machines, only: [:index, :show, :new, :create, :edit, :update] do
-    collection do
-      get :reservations
-      get :uses
-      get :cominghomes
-    end
-  end
+  resources :rental_machines, only: [:index, :show, :new, :create, :edit, :update]
+  # resources :rental_machines, only: [:index, :show, :new, :create, :edit, :update] do
+  #   collection do
+  #     get :reservations
+  #     get :uses
+  #     get :cominghomes
+  #   end
+  # end
   
   resources :orders do
     collection do
@@ -35,4 +36,8 @@ Rails.application.routes.draw do
       get :cominghomes
     end
   end
+  
+  resources :storages, only: [:index, :show, :new, :create, :edit, :update]
+
+  
 end

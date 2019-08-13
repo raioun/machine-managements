@@ -10,7 +10,19 @@
         <p>機番：<%= rental_machine.code %></p>
       </div>
       <div>
+        <p>在庫状況：
+          <% if rental_machine.orders.present? %>
+            <%= rental_machine.orders.last.status %>
+          <% else %>
+            <%= '在庫状況：この機材には、出庫履歴がありません。' %>
+          <% end %>
+        </p>
+      </div>
+      <div>
         <p>所有営業所名：<%= rental_machine.branch.company.name %><%= rental_machine.branch.name %></p>
+      </div>
+      <div>
+        <p>保管場所：<%= rental_machine.storage.company.name%><%= rental_machine.storage.name %></p>
       </div>
       <div>
         <p>状態：<%= rental_machine.status %></p>
