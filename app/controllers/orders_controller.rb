@@ -9,9 +9,12 @@ class OrdersController < ApplicationController
     p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:out_date].present?
     
     @orders = Order.all.includes(:user).includes(:project).includes(:orderer).includes(:rental_machine).order('status', 'out_date', 'out_time', 'in_date', 'in_time').page(params[:page])
-    @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
     
-    @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    # @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    @orders = @orders.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+    @orders = @orders.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
     
     @users = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @orders = @orders.where(user_id: @users.pluck(:id)) if @users
