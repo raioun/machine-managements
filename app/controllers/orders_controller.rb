@@ -15,8 +15,16 @@ class OrdersController < ApplicationController
     # @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
     
     # postgresqlの場合は下記を使用
-    @orders = @orders.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
-    @orders = @orders.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    # @orders = @orders.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @orders = @orders.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    if Rails.env.production?
+      @orders = @orders.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @orders = @orders.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    else
+      @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    end
     
     @users = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @orders = @orders.where(user_id: @users.pluck(:id)) if @users

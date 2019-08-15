@@ -14,7 +14,7 @@
           <% if rental_machine.orders.present? %>
             <%= rental_machine.orders.last.status %>
           <% else %>
-            <%= '在庫状況：この機材には、出庫履歴がありません。' %>
+            <%= 'この機材には、出庫履歴がありません。' %>
           <% end %>
         </p>
       </div>
