@@ -27,7 +27,7 @@ class OrderersController < ApplicationController
     
     if @orderer.save
       flash[:success] = '発注者を登録しました。'
-      redirect_to @orderer
+      redirect_to root_url
     else
       flash.now[:danger] = '発注者の登録に失敗しました。'
       render :new

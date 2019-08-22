@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
     
     @orders = Order.all.includes(:user).includes(:project).includes(:orderer).includes(:rental_machine).order('status', 'out_date', 'out_time', 'in_date', 'in_time').page(params[:page])
     
-    # mysql2の場合は下記を使用  
+    # mysql2の場合は下記を使用
     # @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
     # @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
     

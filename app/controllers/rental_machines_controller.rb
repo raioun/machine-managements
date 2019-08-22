@@ -2,7 +2,7 @@ class RentalMachinesController < ApplicationController
   before_action :require_user_logged_in
   
   def index
-    @rental_machines = RentalMachine.all.includes(:machine).includes(:branch).includes(:storage).page(params[:page])
+    @rental_machines = RentalMachine.all.includes(:machine).includes(:branch).includes(:storage).order('machine_id', 'code').page(params[:page])
     @machines = Machine.all
     @machines = @machines.where('name LIKE?', "%#{params[:machine]}%") if params[:machine].present?
     @machines = @machines.where('type1 LIKE?', "%#{params[:type1]}%") if params[:type1].present?
