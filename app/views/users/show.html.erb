@@ -7,9 +7,9 @@
 <div>
   <p>状態：<%= @user.status %></p>
 </div>
-<!--<div>-->
-<!--  <%#<%= link_to '編集', edit_user_path(@user), class: 'btn btn-warning' %>-->
-<!--</div>-->
+<div>
+  <%= link_to '編集', edit_user_path(@user), class: 'btn btn-warning' %>
+</div>
 
 <div class ="text-center">
   <p><%= link_to 'ユーザ一覧へ戻る', users_path %></p>
