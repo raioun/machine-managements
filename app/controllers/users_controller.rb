@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :require_user_logged_in 追々導入する
+  before_action :require_user_logged_in
+  before_action :users_access
   
   def index
     @users = User.all.order('name').page(params[:page])

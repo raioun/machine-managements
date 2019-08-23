@@ -10,4 +10,12 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+  
+  def users_access
+    @user = User.find(1)
+    unless current_user == @user
+      flash[:danger] = 'ユーザ画面を閲覧・編集する権限がありません。'
+      redirect_to root_url
+    end
+  end
 end
