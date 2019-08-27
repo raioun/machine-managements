@@ -19,6 +19,13 @@
 <div class="text-center">
   <h2>検索フォーム</h2>
 </div>
+
+<% if params[:rental_machine].nil? %>
+<%= selected = nil %>
+<%else %>
+<%= selected = params[:rental_machine][:status] %>
+<%end%>
+
 <div class="text-center">
   <%= form_tag machine_path, :method => 'get' do |f| %>
   
@@ -26,7 +33,7 @@
       <%= label :code, '機番' %>
       <%= text_field_tag :code, params[:code] %>
       <%= label :status, '状態' %>
-      <%= text_field_tag :status, params[:status] %>
+      <%= select :rental_machine,:status, {良品: 0, 重整備: 1, 廃棄済み: 2},selected:  selected %>
     </div>
     
     <div><%= submit_tag '検索', :name => nil %></div>

@@ -10,10 +10,10 @@ class CustomersController < ApplicationController
   def show
     @customer = Customer.find(params[:id])
     @projects = @customer.projects.order('created_at DESC').page(params[:page])
-    @projects = @projects.where('name LIKE?', "%#{params[:name]}%") if params[:name].present?
+    @projects = @projects.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
     @orderers = @customer.orderers.order('created_at').page(params[:page])
-    @orderers = @orderers.where('family_name LIKE?', "%#{params[:orderer]}%") if params[:orderer].present?
-    @orderers = @orderers.where(status: params[:status]) if params[:status].present?
+    @orderers = @orderers.where('family_name LIKE?', "%#{params[:family_name]}%") if params[:family_name].present?
+    @orderers = @orderers.where(status: params[:orderer][:status].to_i) if params[:orderer].present?
   end
   
   def new

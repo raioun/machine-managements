@@ -13,7 +13,18 @@ class OrderersController < ApplicationController
     @orderer = Orderer.find(params[:id])
     
     @orders = @orderer.orders.order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @orders = @orders.where(status: params[:order][:status].to_i) if params[:order].present?
+    
+    p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:in_date].present?
+    p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:out_date].present?
+    
+    if Rails.env.production?
+      @orders = @orders.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @orders = @orders.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    else
+      @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    end
+    
     @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
     @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
   end

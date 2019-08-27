@@ -13,7 +13,7 @@ class MachinesController < ApplicationController
     
     @rental_machines = @machine.rental_machines.order('branch_id, code').page(params[:page])
     @rental_machines = @rental_machines.where('code LIKE?', "%#{params[:code]}%") if params[:code].present?
-    @rental_machines = @rental_machines.where(status: params[:status]) if params[:status].present?
+    @rental_machines = @rental_machines.where(status: params[:rental_machine][:status].to_i) if params[:rental_machine].present?
   end
   
   def new

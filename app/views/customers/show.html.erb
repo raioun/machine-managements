@@ -17,14 +17,21 @@
 <div class="text-center">
   <h2>検索フォーム</h2>
 </div>
+
+<% if params[:orderer].nil? %>
+<%= selected = nil %>
+<%else %>
+<%= selected = params[:orderer][:status] %>
+<%end%>
+
 <div class="text-center">
   <%= form_tag customer_path, :method => 'get' do |f| %>
   
     <div class="form-group">
-      <%= label :orderer, '発注者名(苗字のみ)' %>
-      <%= text_field_tag :orderer, params[:orderer] %>
+      <%= label :family_name, '発注者名(苗字のみ)' %>
+      <%= text_field_tag :family_name, params[:family_name] %>
       <%= label :status, '状態' %>
-      <%= text_field_tag :status, params[:status] %>
+      <%= select :orderer,:status, {在籍中: 0, 退社済み: 1},selected:  selected %>
     </div>
     
     <div><%= submit_tag '検索', :name => nil %></div>
@@ -43,8 +50,8 @@
   <%= form_tag customer_path, :method => 'get' do |f| %>
   
     <div class="form-group">
-      <%= label :name, '現場名' %>
-      <%= text_field_tag :name, params[:name] %>
+      <%= label :project, '現場名' %>
+      <%= text_field_tag :project, params[:project] %>
     </div>
     
     <div><%= submit_tag '検索', :name => nil %></div>
