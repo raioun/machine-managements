@@ -35,10 +35,10 @@
 <div>
   <p>変更日時：<%= @order.updated_at %></p>
 </div>
-<div>
+<div class="button-space">
   <%= link_to '編集', edit_order_path(@order), class: 'btn btn-warning' %>
 </div>
-<div>
+<div class="button-space">
   <% if @order.status == '予約中' %>
     <%= link_to "案件削除", @order, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class:'btn btn-danger' %>
   <% end %>

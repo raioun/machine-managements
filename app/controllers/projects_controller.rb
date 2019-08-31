@@ -24,6 +24,8 @@ class ProjectsController < ApplicationController
       @orders = @orders.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
       @orders = @orders.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
     end
+    
+    @orders = @orders.where(status: params[:order][:status].to_i) if params[:order].present?
   end
   
   def new

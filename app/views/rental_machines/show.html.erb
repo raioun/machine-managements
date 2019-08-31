@@ -38,11 +38,11 @@
 <div>
   <p>備考欄：<%= @rental_machine.remarks %></p>
 </div>
-<div>
+<div class="button-space">
   <%= link_to '編集', edit_rental_machine_path(@rental_machine), class: 'btn btn-warning' %>
 </div>
-<div>
-  <%= link_to '貸し出す', new_order_path(rental_machine_id: @rental_machine), class: 'btn btn-success' %>
+<div class="button-space">
+  <%= link_to '貸し出す', new_order_path(rental_machine_id: @rental_machine), class: 'btn btn-success' %>  
 </div>
 <div class ="text-center">
   <p><%= link_to '機材一覧へ戻る', rental_machines_path %></p>
@@ -62,14 +62,17 @@
 <div class="text-center">
   <%= form_tag rental_machine_path, :method => 'get' do |f| %>
   
-    <div class="text-center">
+    <div class="form-group">
       <%= label :status, '状態' %>
       <%= select :order,:status, {予約中: 0, 出庫中: 1, 返却済み: 2},selected:  selected %>
     </div>
     
-    <div class="text-center">
+    <div class="form-group">
       <%= label :out_date, '出庫日' %>
       <%= text_field_tag :out_date, params[:out_date] %>
+    </div>
+    
+    <div class="form-group">
       <%= label :in_date, '返却日' %>
       <%= text_field_tag :in_date, params[:in_date] %>
     </div>

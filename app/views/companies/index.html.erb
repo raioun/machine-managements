@@ -4,7 +4,7 @@
 <div class="text-center">
   <%= form_tag companies_path, :method => 'get' do |f| %>
   
-    <div class="text-center">
+    <div class="form-group">
       <%= label :company, '所有企業名' %>
       <%= text_field_tag :company, params[:company] %>
     </div>

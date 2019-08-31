@@ -30,8 +30,10 @@
       <div>
         <p>備考欄：<%= rental_machine.remarks %></p>
       </div>
-      <div>
+      <div class="button-space">
         <%= link_to '詳細', rental_machine_path(rental_machine), class: 'btn btn-primary' %>
+      </div>
+      <div class="button-space">
         <%= link_to '貸し出す', new_order_path(rental_machine_id: rental_machine.id), class: 'btn btn-success' %>
       </div>
     </li>
