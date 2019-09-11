@@ -11,8 +11,8 @@
       </div>
       <div>
         <p>在庫状況：
-          <% if @rental_machine.orders.present? %>
-            <%= @rental_machine.orders.order(id: :asc).last.status %>
+          <% if rental_machine.orders.present? %>
+            <%= rental_machine.orders.order(id: :asc).last.status %>
           <% else %>
             <%= '在庫状況：この機材には、出庫履歴がありません。' %>
           <% end %>
