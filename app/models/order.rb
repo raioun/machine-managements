@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   validates :remarks, length: { maximum: 100 }
   
 
-  validates_date :in_date, after: :out_date,
+  validates_date :in_date, on_or_after: :out_date,
                        after_message: 'は、out_dateより先に設定できません。'
                        
   # validates_date :out_date, on_or_after: lambda { Date.current },
