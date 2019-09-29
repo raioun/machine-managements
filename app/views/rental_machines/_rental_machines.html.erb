@@ -4,7 +4,7 @@
   
     <li class="media">
       <div>
-        <p>機材名：<%= rental_machine.machine.name %>/<%= rental_machine.machine.type1 %>/<%= rental_machine.machine.type2 %></p>
+        <p>機材名：<%= link_to rental_machine.machine.name, machine_path(rental_machine.machine) %>/<%= link_to rental_machine.machine.type1, machine_path(rental_machine.machine) %>/<%= link_to rental_machine.machine.type2, machine_path(rental_machine.machine) %></p>
       </div>
       <div>
         <p>機番：<%= rental_machine.code %></p>
@@ -19,7 +19,7 @@
         </p>
       </div>
       <div>
-        <p>所有営業所名：<%= rental_machine.branch.company.name %><%= rental_machine.branch.name %></p>
+        <p>所有営業所名：<%= link_to rental_machine.branch.company.name, company_path(rental_machine.branch.company) %><%= link_to rental_machine.branch.name, branch_path(rental_machine.branch) %></p>
       </div>
       <div>
         <p>保管場所：<%= rental_machine.storage.company.name%><%= rental_machine.storage.name %></p>
@@ -34,7 +34,11 @@
         <%= link_to '詳細', rental_machine_path(rental_machine), class: 'btn btn-primary' %>
       </div>
       <div class="button-space">
-        <%= link_to '貸し出す', new_order_path(rental_machine_id: rental_machine.id), class: 'btn btn-success' %>
+        <% if rental_machine.status == '廃棄済み' %>
+          <p>廃棄済みのため、出庫できません。</p>
+        <% else %>
+          <%= link_to '貸し出す', new_order_path(rental_machine_id: rental_machine.id), class: 'btn btn-success' %>
+        <% end %>
       </div>
     </li>
   <% end %>

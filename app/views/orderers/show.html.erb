@@ -2,7 +2,7 @@
   <p>発注者ID：<%= @orderer.id %>の詳細ページ</p>
 </div>
 <div>
-  <p>顧客企業名：<%= @orderer.customer.name %></p>
+  <p>顧客企業名：<%= link_to @orderer.customer.name, customer_path(@orderer.customer) %></p>
 </div>
 <div>
   <p>発注者名： 姓：<%= @orderer.family_name %> 名：<%= @orderer.first_name %></p>

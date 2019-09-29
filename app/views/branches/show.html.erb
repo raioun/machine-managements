@@ -1,5 +1,5 @@
 <div>
-  <p>顧客企業名：<%= @branch.company.name %></p>
+  <p>顧客企業名：<%= link_to @branch.company.name, company_path(@branch.company) %></p>
 </div>
 <div>
   <p>所有営業所ID：<%= @branch.id %></p>

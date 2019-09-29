@@ -2,7 +2,7 @@
   <p>現場ID：<%= @project.id %></p>
 </div>
 <div>
-  <p>顧客企業名：<%= @project.customer.name %></p>
+  <p>顧客企業名：<%= link_to @project.customer.name, customer_path(@project.customer) %></p>
 </div>
 <div>
   <p>現場名：<%= @project.name %></p>

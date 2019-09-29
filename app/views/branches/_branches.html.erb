@@ -2,7 +2,7 @@
   <% branches.each do |branch| %>
     <li class="media">
       <div>
-        <p>所有企業名：<%= branch.company.name %></p>
+        <p>所有企業名：<%= link_to branch.company.name, company_path(branch.company) %></p>
       </div>
       <div>
         <p>所有営業所名：<%= branch.name %></p>

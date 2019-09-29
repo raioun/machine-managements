@@ -56,6 +56,12 @@
           <%= f.text_field :remarks, class: 'form-control' %>
         </div>
         
+        <div class="form-group">
+          <%= f.label :status, '状態' %>
+          <%= f.select :status, Order.statuses.keys.to_a, {}, class: 'form-control' %>
+        </div>
+        
+        
         <%= f.hidden_field :rental_machine_id %>
         
       <%= f.submit '登録', class: 'btn btn-success' %>
