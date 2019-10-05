@@ -2,7 +2,7 @@
   <h1>案件検索フォーム</h1>
 </div>
 <div class="text-center">
-  <%= form_tag orders_path, :method => 'get' do |f| %>
+  <%= form_tag cominghomes_orders_path, :method => 'get' do |f| %>
   
     <div class="form-group">
       <%= label :out_date, '出庫日' %>
@@ -59,7 +59,7 @@
       <%= label :branch, '所有営業所名' %>
       <%= text_field_tag :branch, params[:branch] %>
     </div>
-    
+
     <div><%= submit_tag '検索', :name => nil %></div>
   <% end %>
 </div>
