@@ -54,9 +54,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'kaminari'
 
-# gem 'will_paginate'
+gem 'will_paginate'
 
-# gem 'ransack'
+gem 'ransack'
 
 gem 'validates_timeliness', '~> 5.0.0.alpha3'
 

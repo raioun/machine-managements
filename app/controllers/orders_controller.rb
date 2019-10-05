@@ -84,7 +84,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    
+    # binding.pry
     if @order.update(order_params)
       flash[:success] = '案件を編集しました。'
       redirect_to @order
