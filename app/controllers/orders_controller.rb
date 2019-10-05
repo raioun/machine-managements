@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
     @orders = @orders.where(user_id: @users.pluck(:id)) if @users
     
     @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
-    @projects = Project.where(customer_id: @customers.pluck(:id)) if @customers
+    @orderers = Orderer.where(customer_id: @customers.pluck(:id)) if @customers
     # @orders = @orders.where(project_id: @projects.pluck(:id)) if @projects
     
     @projects = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
