@@ -30,8 +30,10 @@ class OrdersController < ApplicationController
     @orders = @orders.where(user_id: @users.pluck(:id)) if @users
     
     @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
-    @orderers = Orderer.where(customer_id: @customers.pluck(:id)) if @customers
-    @orders = @orders.where(orderer_id: @orderers.pluck(:id)) if @orderers
+    # @orderers = Orderer.where(customer_id: @customers.pluck(:id)) if @customers
+    # @orders = @orders.where(orderer_id: @orderers.pluck(:id)) if @orderers
+    @project = Project.where(customer_id: @customers.pluck(:id)) if @customers
+    @orders = @orders.where(project_id: @project.pluck(:id)) if @project #@projectと次の@projectsは関数名を分けないと、検索フォームに記載した顧客名が無視させる不具合が発生する
     
     @projects = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
     @orders = @orders.where(project_id: @projects.pluck(:id)) if @projects
