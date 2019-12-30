@@ -119,12 +119,12 @@ class OrdersController < ApplicationController
     @user = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @reservations = @reservations.where(user_id: @user.pluck(:id)) if @user
 
-    @customer = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
-    @orderer = Orderer.where(customer_id: @customer.pluck(:id)) if @customer
-    @reservations = @reservations.where(orderer_id: @orderer.pluck(:id)) if @orderer
-    
-    @project = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
+    @project = Project.where(customer_id: @customers.pluck(:id)) if @customers
     @reservations = @reservations.where(project_id: @project.pluck(:id)) if @project
+    
+    @projects = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @reservations = @reservations.where(project_id: @projects.pluck(:id)) if @projects
     
     # @orderer = Orderer.where('family_name LIKE?', "%#{params[:orderer]}%") if params[:orderer].present?
     # @reservations = @reservations.where(orderer_id: @orderer.pluck(:id)) if @orderer
@@ -157,12 +157,12 @@ class OrdersController < ApplicationController
     @user = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @uses = @uses.where(user_id: @user.pluck(:id)) if @user
     
-    @customer = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
-    @orderer = Orderer.where(customer_id: @customer.pluck(:id)) if @customer
-    @uses = @uses.where(orderer_id: @orderer.pluck(:id)) if @orderer
-    
-    @project = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
+    @project = Project.where(customer_id: @customers.pluck(:id)) if @customers
     @uses = @uses.where(project_id: @project.pluck(:id)) if @project
+    
+    @projects = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @uses = @uses.where(project_id: @projects.pluck(:id)) if @projects
     
     # @orderer = Orderer.where('family_name LIKE?', "%#{params[:orderer]}%") if params[:orderer].present?
     # @uses = @uses.where(orderer_id: @orderer.pluck(:id)) if @orderer
@@ -195,12 +195,12 @@ class OrdersController < ApplicationController
     @user = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @cominghomes = @cominghomes.where(user_id: @user.pluck(:id)) if @user
     
-    @customer = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
-    @orderer = Orderer.where(customer_id: @customer.pluck(:id)) if @customer
-    @cominghomes = @cominghomes.where(orderer_id: @orderer.pluck(:id)) if @orderer
-    
-    @project = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @customers = Customer.where('name LIKE?', "%#{params[:customer]}%") if params[:customer].present?
+    @project = Project.where(customer_id: @customers.pluck(:id)) if @customers
     @cominghomes = @cominghomes.where(project_id: @project.pluck(:id)) if @project
+    
+    @projects = Project.where('name LIKE?', "%#{params[:project]}%") if params[:project].present?
+    @cominghomes = @cominghomes.where(project_id: @projects.pluck(:id)) if @projects
     
     # @orderer = Orderer.where('family_name LIKE?', "%#{params[:orderer]}%") if params[:orderer].present?
     # @cominghomes = @cominghomes.where(orderer_id: @orderer.pluck(:id)) if @orderer
