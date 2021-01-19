@@ -34,7 +34,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     
-    if @company.update(customer_params)
+    if @company.update(company_params)
     flash[:success] = '顧客企業を編集しました。'
       redirect_to @company
     else

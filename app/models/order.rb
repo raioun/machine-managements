@@ -40,34 +40,36 @@ class Order < ApplicationRecord
       
       orders.each do |order|
 
+        #  ro < oo < oi < ri 
         if order.out_date > record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date < record.in_date
           errors.add(:out_date, ":他の予定と期間が重複します")
           errors.add(:in_date, ":他の予定と期間が重複します。")
         end
         
+        # oo == ro < oi < ri
         if order.out_date == record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date < record.in_date
           errors.add(:out_date, ":他の予定と期間が重複します")
         end
         
+        # ro < oo < ri == oi
         if order.out_date > record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date == record.in_date
           errors.add(:in_date, ":他の予定と期間が重複します。")
         end
         
-        
-        
+        # oo <= ro < ri <= oi
         if order.out_date <= record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date >= record.in_date
           errors.add(:out_date, ":他の予定と期間が重複します")
           errors.add(:in_date, ":他の予定と期間が重複します。")
         end
       
 
-
+        # oo < ro < oi < ri
         if order.out_date < record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date < record.in_date
           errors.add(:out_date, ":他の予定と期間が重複します。")
         end
         
         
-        
+        # ro < oo < ri < oi
         if order.out_date > record.out_date && order.out_date < record.in_date && order.in_date > record.out_date && order.in_date > record.in_date
           errors.add(:in_date, ":他の予定と期間が重複します。")
         end

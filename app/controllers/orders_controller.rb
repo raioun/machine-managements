@@ -111,10 +111,29 @@ class OrdersController < ApplicationController
   end
   
   def reservations
+    # p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/, '') if params[:in_date].present?
+    p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:in_date].present?
     
-    @reservations = Order.where(status: "予約中").order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @reservations = @reservations.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
-    @reservations = @reservations.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    # p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/, '') if params[:out_date].present?
+    p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:out_date].present?
+    
+    @reservations = Order.where(status: "予約中").includes(:user).includes(:project).includes(:orderer).includes(:rental_machine).order('status, out_date, out_time, in_date, in_time').page(params[:page])
+    
+    # mysql2の場合は下記を使用
+    # @reservations = @reservations.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @reservations = @reservations.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    # postgresqlの場合は下記を使用
+    # @reservations = @reservations.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @reservations = @reservations.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    if Rails.env.production?
+      @reservations = @reservations.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @reservations = @reservations.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    else
+      @reservations = @reservations.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @reservations = @reservations.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    end
     
     @user = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @reservations = @reservations.where(user_id: @user.pluck(:id)) if @user
@@ -149,11 +168,30 @@ class OrdersController < ApplicationController
   end
   
   def uses
+    # p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/, '') if params[:in_date].present?
+    p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:in_date].present?
     
-    @uses = Order.where(status: "出庫中").order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @uses = @uses.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
-    @uses = @uses.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    # p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/, '') if params[:out_date].present?
+    p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:out_date].present?
     
+    @uses = Order.where(status: "出庫中").includes(:user).includes(:project).includes(:orderer).includes(:rental_machine).order('status, out_date, out_time, in_date, in_time').page(params[:page])
+    
+    # mysql2の場合は下記を使用
+    # @uses = @uses.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @uses = @uses.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    # postgresqlの場合は下記を使用
+    # @uses = @uses.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @uses = @uses.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    if Rails.env.production?
+      @uses = @uses.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @uses = @uses.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    else
+      @uses = @uses.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @uses = @uses.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    end
+
     @user = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @uses = @uses.where(user_id: @user.pluck(:id)) if @user
     
@@ -187,11 +225,30 @@ class OrdersController < ApplicationController
   end
   
   def cominghomes
+    # p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/, '') if params[:in_date].present?
+    p params[:in_date] = params[:in_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:in_date].present?
     
-    @cominghomes = Order.where(status: "返却済み").order('status, out_date, out_time, in_date, in_time').page(params[:page])
-    @cominghomes = @cominghomes.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
-    @cominghomes = @cominghomes.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    # p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/, '') if params[:out_date].present?
+    p params[:out_date] = params[:out_date].gsub(/\A(?:\p{Hiragana}|[^ -~。-゜]|「|」)+\z/, '') if params[:out_date].present?
     
+    @cominghomes = Order.where(status: "返却済み").includes(:user).includes(:project).includes(:orderer).includes(:rental_machine).order('status, out_date, out_time, in_date, in_time').page(params[:page])
+    
+    # mysql2の場合は下記を使用
+    # @cominghomes = @cominghomes.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @cominghomes = @cominghomes.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    # postgresqlの場合は下記を使用
+    # @cominghomes = @cominghomes.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+    # @cominghomes = @cominghomes.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    
+    if Rails.env.production?
+      @cominghomes = @cominghomes.where('CAST(out_date AS text) LIKE ?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @cominghomes = @cominghomes.where('CAST(in_date AS text) LIKE ?', "%#{params[:in_date]}%") if params[:in_date].present?
+    else
+      @cominghomes = @cominghomes.where('out_date LIKE?', "%#{params[:out_date]}%") if params[:out_date].present?
+      @cominghomes = @cominghomes.where('in_date LIKE?', "%#{params[:in_date]}%") if params[:in_date].present?
+    end
+
     @user = User.where('name LIKE?', "%#{params[:user]}%") if params[:user].present?
     @cominghomes = @cominghomes.where(user_id: @user.pluck(:id)) if @user
     

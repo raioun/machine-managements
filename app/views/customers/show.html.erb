@@ -19,9 +19,9 @@
 </div>
 
 <% if params[:orderer].nil? %>
-<%= selected = nil %>
+<% selected = nil %>
 <%else %>
-<%= selected = params[:orderer][:status] %>
+<% selected = params[:orderer][:status] %>
 <%end%>
 
 <div class="text-center">
